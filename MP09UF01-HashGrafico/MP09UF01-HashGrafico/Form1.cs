@@ -23,15 +23,66 @@ namespace MP09UF01_HashGrafico
         private void button1_Click(object sender, EventArgs e)
         {
             String nombreArchivo = textBox1.Text;
-           
-            texto = File.ReadAllText(@nombreArchivo);
+            try
+            {
+                texto = File.ReadAllText(@nombreArchivo);
 
-            String hash;
-            hash = calcularHash(texto);
+                String hash;
+                hash = calcularHash(texto);
+
+                try
+                {
+                    String nombre = textBox2.Text;
+
+                    File.WriteAllText(nombre, hash);
+                }
+                catch
+                {
+                    MessageBox.Show("Introduce un nombre para el hash.");                   
+                }
+                
+            }
+            catch
+            {
+                MessageBox.Show("El archivo de texto no existe.");
+            }
             
-            String nombre = textBox2.Text;
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                texto = File.ReadAllText(textBox1.Text);
 
-            File.WriteAllText(nombre, hash);
+                String hash;
+                String hashGuardado;
+                hash = calcularHash(texto);
+
+                try
+                {
+                    hashGuardado = File.ReadAllText(textBox2.Text);
+
+                    if (hash == hashGuardado)
+
+                    {
+                        MessageBox.Show("Ha sido comprobado correctamente");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No ha sido comprobado correctamente");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("El nombre del hash no existe.");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("El archivo de texto no existe.");
+            }
+            
+            
         }
 
         private static string calcularHash(string texto)
@@ -52,6 +103,6 @@ namespace MP09UF01_HashGrafico
             // Eliminem la classe instanciada
             SHA512.Dispose();
             return hash;
-        }
+        }        
     }
 }
