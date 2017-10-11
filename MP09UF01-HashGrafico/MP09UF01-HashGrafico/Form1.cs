@@ -80,8 +80,7 @@ namespace MP09UF01_HashGrafico
             catch
             {
                 MessageBox.Show("El archivo de texto no existe.");
-            }
-            
+            }          
             
         }
 
